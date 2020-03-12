@@ -21,12 +21,13 @@ FROM pokemons, types
 WHERE pokemons.secondary_type = types.id AND types.name = 'Poison';
 
 /*What are all the primary types and how many pokemon have that type?*/
-SELECT DISTINCT pokemons.primary_type, COUNT(pokemons.name)
+SELECT DISTINCT pokemons.primary_type, types.name, COUNT(*)
 FROM types, pokemons
 WHERE types.id = pokemons.primary_type
-GROUP BY pokemons.primary_type;
+GROUP BY pokemons.primary_type, types.name
+ORDER BY pokemons.primary_type;
 
-/*How many pokemon at level 100 does each trainer with at least one level 100 pokemone have?
+/*How many pokemon at level 100 does each trainer with at least one level 100 pokemon have?
 Hint: your query should not display a trainer*/
 SELECT pokemons.name, pokemon_trainer.pokelevel, COUNT(*)
 FROM pokemon_trainer, pokemons
